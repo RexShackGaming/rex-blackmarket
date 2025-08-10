@@ -5,8 +5,6 @@ Config = {}
 ---------------------------------
 Config = {
     BlackmarketShopItems = {
-        { name = 'weedseed',              amount = 50, price = 3 },
-        { name = 'lockpick',              amount = 50, price = 4 },
         { name = 'weapon_thrown_molotov', amount = 50, price = 5 },
     },
     PersistStock = true, --should stock save in database and load it after restart, to 'remember' stock value before restart
@@ -17,7 +15,7 @@ Config = {
 ---------------------------------
 Config.LawAlertActive = true
 Config.LawAlertChance = 20 -- 20% chance of informing the law
-Config.OutLawIncrease = 1
+Config.OutLawIncrease = 1 -- outlaw status increase for using blood money wash
 Config.WashTime       = 1000 -- amount of time per 1 x bloodmoney
 Config.MaxWash        = 50 -- maximum blood money to wash each time
 
