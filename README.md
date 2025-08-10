@@ -4,7 +4,6 @@
 
 # Dependancies
 - rsg-core
-- rsg-target
 - ox_lib
 
 # Installation
