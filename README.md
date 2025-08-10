@@ -7,12 +7,12 @@
 - rsg-target
 - ox_lib
 
-# Installation:
+# Installation
 - ensure that the dependancies are added and started
 - add rex-blackmarket to your resources folder
 
-# Starting the resource:
+# Starting the resource
 - add the following to your server.cfg file : ensure rex-blackmarket
 
-# support me:
+# support me
 - tebex : https://rexshackgaming.tebex.io/
