@@ -5,6 +5,8 @@ game 'rdr3'
 description 'rex-blackmarket'
 version '2.0.1'
 
+ox_lib 'locale'
+
 shared_scripts {
     '@ox_lib/init.lua',
     'config.lua',
