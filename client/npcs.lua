@@ -47,17 +47,17 @@ function NearPed(npcmodel, npccoords)
             SetEntityAlpha(spawnedPed, i, false)
         end
     end
-	exports.ox_target:addLocalEntity(spawnedPed, {
-		{
-			name = 'npc_blackmarket',
-			icon = 'far fa-eye',
-			label = locale('cl_lang_1'),
-			onSelect = function()
-				TriggerEvent('rex-blackmarket:client:mainmenu')
-			end,
-			distance = 3.0
-		}
-	})
+    exports.ox_target:addLocalEntity(spawnedPed, {
+        {
+            name = 'npc_blackmarket',
+            icon = 'far fa-eye',
+            label = locale('cl_lang_1'),
+            onSelect = function()
+                TriggerEvent('rex-blackmarket:client:mainmenu')
+            end,
+            distance = 3.0
+        }
+    })
     return spawnedPed
 end
 
