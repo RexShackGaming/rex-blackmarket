@@ -9,9 +9,9 @@ Citizen.CreateThread(function()
     for _,v in pairs(Config.BlackmarketLocations) do
         if v.showblip == true then
             local BlackmarketBlip = Citizen.InvokeNative(0x554D9D53F696D002, 1664425300, v.coords)
-            SetBlipSprite(BlackmarketBlip, joaat(Config.Blip.blipSprite), true)
-            SetBlipScale(BlackmarketBlip, Config.Blip.blipScale)
-            Citizen.InvokeNative(0x9CB1A1623062F402, BlackmarketBlip, v.name)
+            SetBlipSprite(BlackmarketBlip, joaat(v.blipsprite), true)
+            SetBlipScale(BlackmarketBlip, v.blipscale)
+            Citizen.InvokeNative(0x9CB1A1623062F402, BlackmarketBlip, v.blipname)
             table.insert(SpawnedBlackmarketBilps, BlackmarketBlip)
         end
     end

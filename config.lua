@@ -26,7 +26,7 @@ Config.DistanceSpawn = 20.0
 Config.FadeIn = true
 
 ---------------------------------
--- npc locations
+-- blackmarket locations
 ---------------------------------
 Config.BlackmarketLocations = {
     {
@@ -35,6 +35,9 @@ Config.BlackmarketLocations = {
         coords = vector3(-1396.49, -2291.90, 43.52),
         npcmodel = `mp_u_M_M_lom_rhd_smithassistant_01`,
         npccoords = vector4(-1396.49, -2291.90, 43.52, 310.10),
+        blipname = 'Theves Landing Blackmarket',
+        blipsprite = 'blip_shop_shady_store',
+        blipscale = 0.2,
         showblip = true
     },
 }
