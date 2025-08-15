@@ -45,55 +45,36 @@ end)
 
 -- wash bloodmoney
 RegisterNetEvent('rex-blackmarket:client:washbloodmoney', function()
+    LocalPlayer.state:set("inv_busy", true, true)
     RSGCore.Functions.TriggerCallback('rex-blackmarket:server:bloodmoneycallback', function(bloodmoney)
-        LocalPlayer.state:set("inv_busy", true, true)
         local input = lib.inputDialog(locale('cl_lang_5')..Config.MaxWash..')', {
-            { 
-                label = locale('cl_lang_6'),
-                description = locale('cl_lang_7') ..bloodmoney,
-                type = 'input',
-                icon = 'fa-solid fa-hashtag',
-                required = true
-            },
+            {label = locale('cl_lang_6'), description = locale('cl_lang_7')..bloodmoney, type = 'input', icon = 'fa-solid fa-hashtag', required = true},
         })
-        if not input then return end
+        if not input then return LocalPlayer.state:set("inv_busy", false, true) end
         local washmoney = tonumber(input[1])
-        if washmoney <= Config.MaxWash then
-            if bloodmoney >= washmoney then
-                if lib.progressBar({
-                    duration = Config.WashTime * washmoney,
-                    position = 'bottom',
-                    useWhileDead = false,
-                    canCancel = false,
-                    disableControl = true,
-                    disable = {
-                        move = true,
-                        mouse = true,
-                    },
-                    anim = {
-                        dict = 'mech_inventory@crafting@fallbacks',
-                        clip = 'full_craft_and_stow',
-                        flag = 27,
-                    },
-                    label = locale('cl_lang_8'),
-                }) then
-                    RSGCore.Functions.TriggerCallback('rex-blackmarket:server:getoutlawstatus', function(result)
-                        if Config.LawAlertActive then
-                            local random = math.random(100)
-                            if random <= Config.LawAlertChance then
-                                local coords = GetEntityCoords(cache.ped)
-                                TriggerEvent('rsg-lawman:client:lawmanAlert', coords, locale('cl_lang_11'))
-                            end
-                        end
-                        outlawstatus = result[1].outlawstatus
-                        TriggerServerEvent('rex-blackmarket:server:washmoney', washmoney, outlawstatus)
-                    end)
-                end
-            else
-                lib.notify({ title = locale('cl_lang_9'), type = 'error', duration = 7000 })
-            end
-        else
+        if not washmoney or washmoney <= 0 or washmoney > Config.MaxWash then
             lib.notify({ title = locale('cl_lang_10')..Config.MaxWash, type = 'error', duration = 7000 })
+            return LocalPlayer.state:set("inv_busy", false, true)
+        end
+        if bloodmoney < washmoney then
+            lib.notify({ title = locale('cl_lang_9'), type = 'error', duration = 7000 })
+            return LocalPlayer.state:set("inv_busy", false, true)
+        end
+        local success = lib.progressBar({
+            duration = Config.WashTime * washmoney, position = 'bottom',
+            useWhileDead = false, canCancel = false, disableControl = true,
+            disable = { move = true, mouse = true },
+            anim = { dict = 'mech_inventory@crafting@fallbacks', clip = 'full_craft_and_stow', flag = 27 },
+            label = locale('cl_lang_8'),
+        })
+        if success then
+            RSGCore.Functions.TriggerCallback('rex-blackmarket:server:getoutlawstatus', function(result)
+                local outlawstatus = result and result[1] and result[1].outlawstatus or 0
+                if Config.LawAlertActive and math.random(100) <= Config.LawAlertChance then
+                    TriggerEvent('rsg-lawman:client:lawmanAlert', GetEntityCoords(cache.ped), locale('cl_lang_11'))
+                end
+                TriggerServerEvent('rex-blackmarket:server:washmoney', washmoney, outlawstatus)
+            end)
         end
         LocalPlayer.state:set("inv_busy", false, true)
     end)
