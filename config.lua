@@ -18,6 +18,7 @@ Config.LawAlertChance = 20 -- 20% chance of informing the law
 Config.OutLawIncrease = 1 -- outlaw status increase for using blood money wash
 Config.WashTime       = 1000 -- amount of time per 1 x bloodmoney
 Config.MaxWash        = 50 -- maximum blood money to wash each time
+Config.WashPercentage = 60 -- percentage of blood money converted to clean money
 
 ---------------------------------
 -- npc settings
